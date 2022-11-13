@@ -72,6 +72,7 @@ function fileConvert() {
     html = converter.makeHtml(text);
 }
 //displays in a web content window (also in theory)
-function load_home() {
+function load_webpage() {
+    var document = website.html;
     document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html"></object>';
 }
