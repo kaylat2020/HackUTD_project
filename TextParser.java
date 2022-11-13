@@ -52,7 +52,7 @@ public class TextParser
 	}
 
 	/**
-	 * Pattern matching for markdowns in .txt document
+	 * Compiles Pattern matching for markdowns in .txt document
 	 */
 	public static void  initialize()
 	{
@@ -65,13 +65,13 @@ public class TextParser
 		heading_3 = Pattern.compile( "^###\\s([\\w|\\s]*)" );
 		bold = Pattern.compile( "\\*\\*([\\w|\\s[^\\*]]*)\\*\\*" );
 		italic = Pattern.compile( "\\*([\\w|\\s[^\\*]]*)\\*" );
-		blockquote = Pattern.compile( "^>\\s(.*)" );
-		ordered_list = Pattern.compile( "^-\\s(.*\\n)+" );
+		blockquote = Pattern.compile( ">\\s([\\w|\\s|\\.]*)" );
+		ordered_list = Pattern.compile( "-\\s([\\w|\\s|\\.]+)" );
 		unordered_list = Pattern.compile( "\\d\\.\\s(\\w)" );
-		code = Pattern.compile( "^`(.*)`" ); //yes i know this is a massive ass security hazard, shut up
-		horizontal_rule = Pattern.compile( "^(---|\\*\\*\\*|___){1}" );
-		link = Pattern.compile( "^\\[\\w\\]\\(^https?:\\/\\/.*\\)" ); 
-		image = Pattern.compile( "^!\\[[\\w\\s]\\]\\((\\w\\.jpg)\\)$" );
+		code = Pattern.compile( "`(.*)`" ); //yes i know this is a massive ass security hazard, shut up
+		horizontal_rule = Pattern.compile( "(---|\\*\\*\\*|___){1}" );
+		link = Pattern.compile( "\\[[\\w]+\\]\\((https?:\\/\\/.*)\\)" ); 
+		image = Pattern.compile( "!\\[[\\w\\s]\\]\\((\\w\\.jpg)\\)$" );
 
 		//throw compiled patterns into array (useful for later)
 		patterns = new Pattern[] { heading_1, heading_2, heading_3, bold, italic, 
