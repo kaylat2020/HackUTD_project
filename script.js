@@ -70,9 +70,31 @@ function fileConvert() {
     var converter = new showdown.Converter(),
     text = fileReader.readAsText(file),
     html = converter.makeHtml(text);
+    //put html text into new html file, link w/ created.html
+
 }
 //displays in a web content window (also in theory)
 function load_webpage() {
-    var document = website.html;
     document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html"></object>';
+}
+
+function loadHtml(id, filename) {
+    console.log(`div id: ${id}, filename: ${filename}`);
+
+    let xhttp;
+    let element = document.getElementById(id);
+    let file = filename;
+
+    if ( file ) {
+        xhttp = new XMLHttRrequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if (this.status == 200) {element.innerHTML = this.responseText;}
+                if (this.status == 404) {element.innerHTML = "<h1>Page not found.</h1>";}
+            }
+        }
+        xhttp.open("GET", `templates/${file}`, true); //initializes request
+        xhttp.send(); //sends request
+        return;
+    }
 }
