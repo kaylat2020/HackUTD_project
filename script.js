@@ -73,5 +73,5 @@ function fileConvert() {
 }
 //displays in a web content window (also in theory)
 function load_home() {
-    document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html" ></object>';
+    document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html"></object>';
 }
