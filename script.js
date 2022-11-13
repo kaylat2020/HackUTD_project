@@ -65,19 +65,20 @@ function fileValidation() {
     //TEST console.log('File has been dropped in the drag area');
 }
 
+/* ALL CODE BELOW IS FOR THE CONVERSION (and is not working as of rn lmao) */
 //converts markdown to html file (in theory)
 function fileConvert() {
     var converter = new showdown.Converter(),
     text = fileReader.readAsText(file),
     html = converter.makeHtml(text);
-    //put html text into new html file, link w/ created.html
+    //TODO put html text into new html file, link w/ created.html resource somehow
 
 }
 //displays in a web content window (also in theory)
 function load_webpage() {
     document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html"></object>';
 }
-
+//displays html code in browser element
 function loadHtml(id, filename) {
     console.log(`div id: ${id}, filename: ${filename}`);
 

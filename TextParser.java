@@ -18,7 +18,7 @@ public class TextParser
 	//Scanner
 	private static Scanner scan;
 	//regex patterns that match markdowns
-	private static final Pattern emptyLn = Pattern.compile( "(\\t|\\n|\\s)+" );
+	private static final Pattern emptyLn = Pattern.compile( "[\\t|\\n|\\s]+" );
 	private static Pattern heading_1, heading_2, heading_3, bold, italic, blockquote, 
 		ordered_list, unordered_list, code, horizontal_rule, link, image;
 	private static Pattern[] patterns;
@@ -39,8 +39,7 @@ public class TextParser
 			File f = new File( "./test.txt" ); 
 			scan = new Scanner( f );
 
-			//grab the new html file returned from the coversion
-			File html = toHTML( scan );
+			toHTML( scan );
 		}
 		catch ( Exception e ) { System.out.print( e ); } finally
 		{
@@ -57,7 +56,7 @@ public class TextParser
 	 */
 	public static void  initialize()
 	{
-		//these can definitely be improved
+		//these can definitely be improved, im working on it chief
 		//btw this cheat sheet is ur reference, only basic syntax for now:
 		//https://www.markdownguide.org/cheat-sheet/
 
@@ -102,19 +101,19 @@ public class TextParser
 			{
 				//ignore empty lines (stop trying to pattern match the line)
 				Matcher empty = emptyLn.matcher( currentln );
-				if ( empty.matches() )
-				{
-					continue;
-				}
+				if ( empty.matches() ) { continue; }
+
 				//check current pattern in list for match
 				m = patterns[i].matcher( currentln );
 
-				if (m.find()) 
+				if ( m.find() )
 				{
-					System.out.println("Found value: " + m.group(1));
-					continue;
+					System.out.println( "Found value: " + m.group(1) );
+					break;
 				}
 
+				//switch case for building blocks of html (NON-FUNCTIONAL)
+				/*
 				if ( m.matches() )
 				{
 					//GENERATE THE HTML stuff for the DOCUMENT 4HEAD
@@ -159,7 +158,7 @@ public class TextParser
 
 							break;
 					}
-				}
+					*/
 			}
 		}
 		return null;
