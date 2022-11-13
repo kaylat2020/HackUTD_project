@@ -1,7 +1,6 @@
 const dragArea = document.querySelector('.drag-area');
 const dragText = document.querySelector('.header')
 const dragIcon = document.querySelector('.icon')
-const fileInput = document.getElementById('input');
 
 let button = document.querySelector('.button');
 let input = document.querySelector('input');
@@ -58,16 +57,16 @@ function fileValidation() {
             //console.log(fileURL);
         let txtTag = `<img src ="success.png" alt = "Success">`; 
         };
+
+        //file reading???? im trying ok
         fileReader.readAsDataURL(file);
+        fileReader.fileConvert();
+        load_webpage();
+
     } else {
         alert('This file is not a .txt file');
     }
     //TEST console.log('File has been dropped in the drag area');
-}
-
-fileInput.onchange = () => {
-    const selectedFile = fileInput.files[0];
-    console.log(selectedFile);
 }
 
 /* ALL CODE BELOW IS FOR THE CONVERSION (and is not working as of rn lmao) */
@@ -76,8 +75,6 @@ function fileConvert() {
     var converter = new showdown.Converter(),
     text = fileReader.readAsText(file),
     html = converter.makeHtml(text);
-    //TODO put html text into new html file, link w/ created.html resource somehow
-
 }
 //displays in a web content window (also in theory)
 function load_webpage() {
