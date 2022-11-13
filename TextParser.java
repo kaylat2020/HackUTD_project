@@ -16,17 +16,17 @@ import javax.swing.JEditorPane;
 public class TextParser
 {
 	//Scanner
-	private Scanner scan;
+	private static Scanner scan;
 	//regex patterns that match markdowns
-	private final Pattern emptyLn = Pattern.compile( "(\\t|\\n|\\s)+" );
-	private Pattern heading_1, heading_2, heading_3, bold, italic, blockquote, 
+	private static final Pattern emptyLn = Pattern.compile( "(\\t|\\n|\\s)+" );
+	private static Pattern heading_1, heading_2, heading_3, bold, italic, blockquote, 
 		ordered_list, unordered_list, code, horizontal_rule, link, image;
-	private Pattern[] patterns;
-	private JEditorPane p;
+	private static Pattern[] patterns;
+	private static JEditorPane p;
 	//private HTMLDocument htmldoc;
 	
 
-	public void main( String[] args )
+	public static void main( String[] args )
 	{
 		//self-explanatory for private local variables
 		initialize();
@@ -36,11 +36,11 @@ public class TextParser
 		{
 			//change file location later 
 			// - this needs to be linked to the webpage file asset somehow
-			File f = new File( "./src/Map.txt" ); 
+			File f = new File( "./test.txt" ); 
 			scan = new Scanner( f );
 
 			//grab the new html file returned from the coversion
-			//File html = toHTML( scan );
+			File html = toHTML( scan );
 		}
 		catch ( Exception e ) { System.out.print( e ); } finally
 		{
@@ -55,24 +55,24 @@ public class TextParser
 	/**
 	 * Pattern matching for markdowns in .txt document
 	 */
-	public void initialize()
+	public static void  initialize()
 	{
 		//these can definitely be improved
 		//btw this cheat sheet is ur reference, only basic syntax for now:
 		//https://www.markdownguide.org/cheat-sheet/
 
-		heading_1 = Pattern.compile( "^(#)\\s{1}(\\w)+" );
-		heading_2 = Pattern.compile( "^(##)\\s{1}(\\w)+" );
-		heading_3 = Pattern.compile( "^(###)\\s{1}(\\w)+" );
-		bold = Pattern.compile( "^(\\*\\*){1}(.*)(\\*\\*)${1}" );
-		italic = Pattern.compile( "(\\*){1}(.*)(\\*)${1}" );
-		blockquote = Pattern.compile( "^>\\s{1}.*" );
-		ordered_list = Pattern.compile( "(-\\s{1}.*\\n)+" );
-		unordered_list = Pattern.compile( "(\\d\\.)\\s{1}" );
-		code = Pattern.compile( "`(.*)`" );
-		horizontal_rule = Pattern.compile( "(---|***|___){1}" );
-		link = Pattern.compile( "\\[\\w\\]\\(^https?:\\/\\/.*\\)" ); 
-		image = Pattern.compile( "!\\[[\\w\\s]\\]\\(\\w(.jpg)$" );
+		heading_1 = Pattern.compile( "^#\\s([\\w|\\s]*)" );
+		heading_2 = Pattern.compile( "^##\\s([\\w|\\s]*)" );
+		heading_3 = Pattern.compile( "^###\\s([\\w|\\s]*)" );
+		bold = Pattern.compile( "[\\*\\*](.*)[\\*\\*]" );
+		italic = Pattern.compile( "[\\*](.*)[\\*]" );
+		blockquote = Pattern.compile( "^>\\s(.*)" );
+		ordered_list = Pattern.compile( "^-\\s(.*\\n)+" );
+		unordered_list = Pattern.compile( "\\d\\.\\s(\\w)" );
+		code = Pattern.compile( "^`(.*)`" ); //yes i know this is a massive ass security hazard, shut up
+		horizontal_rule = Pattern.compile( "^(---|\\*\\*\\*|___){1}" );
+		link = Pattern.compile( "^\\[\\w\\]\\(^https?:\\/\\/.*\\)" ); 
+		image = Pattern.compile( "^!\\[[\\w\\s]\\]\\((\\w\\.jpg)\\)$" );
 
 		//throw compiled patterns into array (useful for later)
 		patterns = new Pattern[] { heading_1, heading_2, heading_3, bold, italic, 
@@ -88,12 +88,13 @@ public class TextParser
 	/**
 	 * Method to scan .txt file w/ markdown -> construct .html file
 	 */
-	public File toHTML( Scanner scan )
+	public static File toHTML( Scanner scan )
 	{
 		//loop through document, scan line-by-line
 		while ( scan.hasNext() )
 		{
 			String currentln = scan.nextLine();
+			System.out.println( currentln ); //test
 
 			//loop through list of patterns, search for match
 			for ( int i = 0; i < patterns.length; i++ )
@@ -107,6 +108,11 @@ public class TextParser
 				//check current pattern in list for match
 				Matcher m = patterns[i].matcher( currentln );
 				//need to find way to store String attribute for tag
+				
+				if (m.find()) {
+					System.out.println("Found value: " + m.group(1));
+				}
+
 				if ( m.matches() )
 				{
 					switch ( i )
