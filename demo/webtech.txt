@@ -1,0 +1,7 @@
+# This is the start of something new.
+
+webtext.tech lets anyone build simple, responsive, and lightweight web pages for free.
+
+## How do we do this?
+
+-   By allowing users to write their webpages completely in  [Markdown,](https://en.wikipedia.org/wiki/Markdown)  a leightweight markup language for creating formatted text using a plain-text editor.
