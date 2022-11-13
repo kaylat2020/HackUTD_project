@@ -1,7 +1,7 @@
 const dragArea = document.querySelector('.drag-area');
 const dragText = document.querySelector('.header')
 const dragIcon = document.querySelector('.icon')
-
+const fileInput = document.getElementById('input');
 
 let button = document.querySelector('.button');
 let input = document.querySelector('input');
@@ -63,6 +63,11 @@ function fileValidation() {
         alert('This file is not a .txt file');
     }
     //TEST console.log('File has been dropped in the drag area');
+}
+
+fileInput.onchange = () => {
+    const selectedFile = fileInput.files[0];
+    console.log(selectedFile);
 }
 
 /* ALL CODE BELOW IS FOR THE CONVERSION (and is not working as of rn lmao) */

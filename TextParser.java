@@ -111,7 +111,7 @@ public class TextParser
 					System.out.println( "Found value: " + m.group(1) );
 					break;
 				}
-
+				
 				//switch case for building blocks of html (NON-FUNCTIONAL)
 				/*
 				if ( m.matches() )
