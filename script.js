@@ -64,3 +64,14 @@ function fileValidation() {
     }
     //TEST console.log('File has been dropped in the drag area');
 }
+
+//converts markdown to html file (in theory)
+function fileConvert() {
+    var converter = new showdown.Converter(),
+    text = fileReader.readAsText(file),
+    html = converter.makeHtml(text);
+}
+//displays in a web content window (also in theory)
+function load_home() {
+    document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html" ></object>';
+}
