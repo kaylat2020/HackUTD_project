@@ -35,7 +35,7 @@ dragArea.addEventListener('dragleave', () => {
 //when the file is dropped in the drag area
 dragArea.addEventListener('drop', (event) => {
     event.preventDefault();
-
+    dragText.textContent = 'File received';
     //only selects first file user uploads
     file = event.dataTransfer.files[0];
     fileValidation();
