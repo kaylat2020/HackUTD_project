@@ -1,11 +1,10 @@
 import java.io.File;
-import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import javax.swing.JEditorPane;
-import javax.swing.text.html.HTMLDocument;
+//import javax.swing.text.html.HTMLDocument;
 
 //HTMLDocument API: https://docs.oracle.com/javase/8/docs/api/javax/swing/text/html/HTMLDocument.html
 //Pattern API + Regex: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
@@ -24,7 +23,7 @@ public class TextParser
 		ordered_list, unordered_list, code, horizontal_rule, link, image;
 	private Pattern[] patterns;
 	private JEditorPane p;
-	private HTMLDocument htmldoc;
+	//private HTMLDocument htmldoc;
 	
 
 	public void main( String[] args )
@@ -41,7 +40,7 @@ public class TextParser
 			scan = new Scanner( f );
 
 			//grab the new html file returned from the coversion
-			File html = toHTML( scan );
+			//File html = toHTML( scan );
 		}
 		catch ( Exception e ) { System.out.print( e ); } finally
 		{
@@ -83,7 +82,7 @@ public class TextParser
 		p = new JEditorPane();
 		p.setContentType("text/html");
 		p.setText("..."); // Document text is provided below.
-		htmldoc = (HTMLDocument) p.getDocument();
+		//htmldoc = (HTMLDocument) p.getDocument();
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class TextParser
 					continue;
 				}
 				//check current pattern in list for match
-				Matcher m = p[i].matcher( currentln );
+				Matcher m = patterns[i].matcher( currentln );
 				//TODO need to find way to store String attribute for tag
 				if ( m.matches() )
 				{
@@ -155,5 +154,6 @@ public class TextParser
 				}
 			}
 		}
+		return null;
 	}
 }
