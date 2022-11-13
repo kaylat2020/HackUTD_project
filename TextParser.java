@@ -34,7 +34,7 @@ public class TextParser
 		//scanning is dangerous ok im scawred
 		try
 		{
-			//TODO change file location later 
+			//change file location later 
 			// - this needs to be linked to the webpage file asset somehow
 			File f = new File( "./src/Map.txt" ); 
 			scan = new Scanner( f );
@@ -106,7 +106,7 @@ public class TextParser
 				}
 				//check current pattern in list for match
 				Matcher m = patterns[i].matcher( currentln );
-				//TODO need to find way to store String attribute for tag
+				//need to find way to store String attribute for tag
 				if ( m.matches() )
 				{
 					switch ( i )
@@ -150,7 +150,7 @@ public class TextParser
 
 							break;
 					}
-					//TODO GENERATE THE HTML stuff for the DOCUMENT 4HEAD
+					//GENERATE THE HTML stuff for the DOCUMENT 4HEAD
 				}
 			}
 		}
