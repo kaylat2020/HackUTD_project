@@ -33,6 +33,27 @@
                 position: fixed;
                 width: 100%;
             }
+            
+            input::file-selector-button, input[type=submit], input[type=file]{
+                background-color: #FAF9F6;
+                border-bottom: 5px solid rgb(60, 60, 60);
+                color: rgb(60, 60, 60);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+
+            input[type=file]{
+                border:none;
+            }
+
+            input[type=submit]:hover{
+                background-color: #689897b3;
+            }
+
+            input::file-selector-button:hover{
+                background-color: #689897b3;
+            }
 
         </style>
         <style type="text/css"></style>
@@ -45,12 +66,12 @@
     <center><h3>Get started now ⬇️</h3></center>
     <center>
         <form action="/action_page.php">
-            <input type="file" id="myFile" name="filename">
+            <input type="file" id="myFile" name="filename" style="width:87.5px">
             <input type="submit">
         </form>
     </center>
 </body>
 
 <footer>
-    <center><p>Made with ❤️ by Snack Overflow @HackUTD</p></center>
+    <center><p>Made with ❤️ by Snack Overflow @ HackUTD IX</p></center>
 </footer>
