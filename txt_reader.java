@@ -6,15 +6,12 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import javax.swing.text.html.HTMLDocument;
 
-//HTMLDocument API:
-//https://docs.oracle.com/javase/8/docs/api/javax/swing/text/html/HTMLDocument.html
-
-//Pattern API + Regex:
-//https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+//HTMLDocument API: https://docs.oracle.com/javase/8/docs/api/javax/swing/text/html/HTMLDocument.html
+//Pattern API + Regex: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
 
 /**
- * @author Kayla Tucker,
- * @version 1.0
+ * @author Kayla Tucker, [anyone who reads this mess]
+ * @version 1.0 (Pre-Alpha)
  */
 public class TextParser
 {
@@ -24,28 +21,27 @@ public class TextParser
 		ordered_list, unordered_list, code, horizontal_rule, link, image;
 	private Pattern[] patterns;
 	//tags UPDATE: WELL SHIT THEY MIGHT NOT BE NEEDED AFTER THE HTMLDOC IMPORT
-	//private String[] = new String[] { "h1","h2","h3","b","i","blockquote","ol","ul","code","hr","a","img" };
+	//private String[] = new String[] 
+	//	{ "h1","h2","h3","b","i","blockquote","ol","ul","code","hr","a","img" };
+	private HTMLDocument htmldoc;
 
 	public static void main( String[] args )
 	{
-		//self-explanatory for local variables
+		//self-explanatory for private local variables
 		initialize();
 
+		//scanning is dangerous ok im scawred
 		try
 		{
-			//TODO change file location later idk where the dragndrop is
+			//TODO change file location later 
+			// - this needs to be linked to the webpage file asset somehow
 			File f = new File( "./src/Map.txt" ); 
 			scan = new Scanner( f );
 
 			//grab the new html file returned from the coversion
-			File html = converter( scan );
+			File html = toHTML( scan );
 		}
-		catch ( Exception e )
-		{
-			//scanning is dangerous ok im scawred
-			System.out.print( e );
-		}
-		finally
+		catch ( Exception e ) { System.out.print( e ); } finally
 		{
 			//scanner no more scanning
 			if ( scan != null )
@@ -57,8 +53,8 @@ public class TextParser
 
 	/**
 	 * Pattern matching for markdowns in .txt document
-	 * WARNING: \ to escape requires another \ in a java string 
-	 * parser, but I'll add them later to avoid confusing myself
+	 * WARNING: \ to escape regex chars requires another \ in a java string 
+	 * parser, but I'll add them later to avoid confusing myself on syntax
 	 */
 	public static void initialize()
 	{
@@ -69,7 +65,7 @@ public class TextParser
 		heading_1 = Pattern.compile( "^(#)\s{1}(\w)+" );
 		heading_2 = Pattern.compile( "^(##)\s{1}(\w)+" );
 		heading_3 = Pattern.compile( "^(###)\s{1}(\w)+" );
-		bold Pattern.compile( "^(\*\*){1}(.*)(\*\*)${1}" );
+		bold = Pattern.compile( "^(\*\*){1}(.*)(\*\*)${1}" );
 		italic = Pattern.compile( "(\*){1}(.*)(\*)${1}" );
 		blockquote = Pattern.compile( "^>\s{1}.*" );
 		ordered_list = Pattern.compile( "(-\s{1}.*\n)+" );
@@ -87,28 +83,13 @@ public class TextParser
 		JEditorPane p = new JEditorPane();
 		p.setContentType("text/html");
 		p.setText("..."); // Document text is provided below.
-		HTMLDocument d = (HTMLDocument) p.getDocument();
-
-		/*
-		patterns[0] = heading_1;
-		patterns[1] = heading_2;
-		patterns[2] = heading_3;
-		patterns[3] = bold;
-		patterns[4] = italic;
-		patterns[5] = blockquote;
-		patterns[6] = ordered_list;
-		patterns[7] = unordered_list;
-		patterns[8] = code;
-		patterns[9] = horizontal_rule;
-		patterns[10] = link;
-		patterns[11] = image;
-		*/
+		htmldoc = (HTMLDocument) p.getDocument();
 	}
 
 	/**
 	 * Method to scan .txt file w/ markdown -> construct .html file
 	 */
-	public static File converter( Scanner scan )
+	public static File toHTML( Scanner scan )
 	{
 		//loop through document, scan line-by-line
 		while ( scan.hasNext() )
@@ -116,7 +97,7 @@ public class TextParser
 			String currentln = scan.nextLine();
 
 			//loop through list of patterns, search for match
-			for ( int i = 0; i < patterns.length : patterns )
+			for ( int i = 0; i < patterns.length; i++ )
 			{
 				//ignore empty lines (stop trying to pattern match the line)
 				Matcher empty = emptyLn.matches( currentln );
@@ -128,7 +109,7 @@ public class TextParser
 				Matcher m = p.matches( currentln );
 				if ( m.matches() )
 				{
-					//TODO GENERATE THE HTML DOCUMENT 4HEAD
+					//TODO GENERATE THE HTML stuff for the DOCUMENT 4HEAD
 				}
 			}
 		}
