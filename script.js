@@ -35,7 +35,7 @@ dragArea.addEventListener('dragleave', () => {
 //when the file is dropped in the drag area
 dragArea.addEventListener('drop', (event) => {
     event.preventDefault();
-
+    dragText.textContent = 'File received';
     //only selects first file user uploads
     file = event.dataTransfer.files[0];
     fileValidation();
@@ -72,6 +72,7 @@ function fileConvert() {
     html = converter.makeHtml(text);
 }
 //displays in a web content window (also in theory)
-function load_home() {
+function load_webpage() {
+    var document = website.html;
     document.getElementById("content").innerHTML='<object type="text/html" data="webpage.html"></object>';
 }
