@@ -13,7 +13,7 @@ body{
     font-size:25px;
     color:rgb(60, 60, 60);
     background-color:#FAF9F6;
-    padding:0;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
