@@ -8,8 +8,13 @@
 body{
     font-family: ‘SF Pro Display’,
         sans-serif;   
+<<<<<<< HEAD
     margin:40px auto;
     line-height:1.2;
+=======
+    margin:10px auto;
+    line-height:1;
+>>>>>>> ba227cdccde67095ace283e718389180ecd01b81
     font-size:25px;
     color:rgb(60, 60, 60);
     background-color:#FAF9F6;
@@ -21,12 +26,17 @@ body{
     flex-direction: column;
     }
 
-h1,h2{
+h1{
+    top: 0;
+}
+
+h1,h2,h3{
     line-height:1.5
     }
 
-h3 {
+h3.smaller {
     margin-bottom: 20px;
+    font-size: 20px;
     font-weight: 500;
     }    
 

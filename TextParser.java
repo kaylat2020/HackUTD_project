@@ -1,9 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
-import java io.IOException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+
+import javax.swing.JEditorPane;
 import javax.swing.text.html.HTMLDocument;
 
 //HTMLDocument API: https://docs.oracle.com/javase/8/docs/api/javax/swing/text/html/HTMLDocument.html
@@ -15,17 +16,18 @@ import javax.swing.text.html.HTMLDocument;
  */
 public class TextParser
 {
+	//Scanner
+	private Scanner scan;
 	//regex patterns that match markdowns
-	private final Pattern emptyLn = Pattern.compile( "(\t|\n|\s)+" );
+	private final Pattern emptyLn = Pattern.compile( "(\\t|\\n|\\s)+" );
 	private Pattern heading_1, heading_2, heading_3, bold, italic, blockquote, 
 		ordered_list, unordered_list, code, horizontal_rule, link, image;
 	private Pattern[] patterns;
-	//tags UPDATE: WELL SHIT THEY MIGHT NOT BE NEEDED AFTER THE HTMLDOC IMPORT
-	//private String[] = new String[] 
-	//	{ "h1","h2","h3","b","i","blockquote","ol","ul","code","hr","a","img" };
+	private JEditorPane p;
 	private HTMLDocument htmldoc;
+	
 
-	public static void main( String[] args )
+	public void main( String[] args )
 	{
 		//self-explanatory for private local variables
 		initialize();
@@ -53,34 +55,32 @@ public class TextParser
 
 	/**
 	 * Pattern matching for markdowns in .txt document
-	 * WARNING: \ to escape regex chars requires another \ in a java string 
-	 * parser, but I'll add them later to avoid confusing myself on syntax
 	 */
-	public static void initialize()
+	public void initialize()
 	{
 		//these can definitely be improved
 		//btw this cheat sheet is ur reference, only basic syntax for now:
 		//https://www.markdownguide.org/cheat-sheet/
 
-		heading_1 = Pattern.compile( "^(#)\s{1}(\w)+" );
-		heading_2 = Pattern.compile( "^(##)\s{1}(\w)+" );
-		heading_3 = Pattern.compile( "^(###)\s{1}(\w)+" );
-		bold = Pattern.compile( "^(\*\*){1}(.*)(\*\*)${1}" );
-		italic = Pattern.compile( "(\*){1}(.*)(\*)${1}" );
-		blockquote = Pattern.compile( "^>\s{1}.*" );
-		ordered_list = Pattern.compile( "(-\s{1}.*\n)+" );
-		unordered_list = Pattern.compile( "(\d\.)\s{1}" );
+		heading_1 = Pattern.compile( "^(#)\\s{1}(\\w)+" );
+		heading_2 = Pattern.compile( "^(##)\\s{1}(\\w)+" );
+		heading_3 = Pattern.compile( "^(###)\\s{1}(\\w)+" );
+		bold = Pattern.compile( "^(\\*\\*){1}(.*)(\\*\\*)${1}" );
+		italic = Pattern.compile( "(\\*){1}(.*)(\\*)${1}" );
+		blockquote = Pattern.compile( "^>\\s{1}.*" );
+		ordered_list = Pattern.compile( "(-\\s{1}.*\\n)+" );
+		unordered_list = Pattern.compile( "(\\d\\.)\\s{1}" );
 		code = Pattern.compile( "`(.*)`" );
 		horizontal_rule = Pattern.compile( "(---|***|___){1}" );
-		link = Pattern.compile( "\[\w\]\(^https?:\/\/.*\)" ); 
-		image = Pattern.compile( "!\[[\w\s]\]\(\w(.jpg)$" );
+		link = Pattern.compile( "\\[\\w\\]\\(^https?:\\/\\/.*\\)" ); 
+		image = Pattern.compile( "!\\[[\\w\\s]\\]\\(\\w(.jpg)$" );
 
 		//throw compiled patterns into array (useful for later)
 		patterns = new Pattern[] { heading_1, heading_2, heading_3, bold, italic, 
 			blockquote, ordered_list, unordered_list, code, horizontal_rule, link, image };
 
 		//HTMLdocument stuff to make empty html file
-		JEditorPane p = new JEditorPane();
+		p = new JEditorPane();
 		p.setContentType("text/html");
 		p.setText("..."); // Document text is provided below.
 		htmldoc = (HTMLDocument) p.getDocument();
@@ -89,7 +89,7 @@ public class TextParser
 	/**
 	 * Method to scan .txt file w/ markdown -> construct .html file
 	 */
-	public static File toHTML( Scanner scan )
+	public File toHTML( Scanner scan )
 	{
 		//loop through document, scan line-by-line
 		while ( scan.hasNext() )
@@ -100,15 +100,57 @@ public class TextParser
 			for ( int i = 0; i < patterns.length; i++ )
 			{
 				//ignore empty lines (stop trying to pattern match the line)
-				Matcher empty = emptyLn.matches( currentln );
-				if ( empty )
+				Matcher empty = emptyLn.matcher( currentln );
+				if ( empty.matches() )
 				{
-					return;
+					continue;
 				}
 				//check current pattern in list for match
-				Matcher m = p.matches( currentln );
+				Matcher m = p[i].matcher( currentln );
+				//TODO need to find way to store String attribute for tag
 				if ( m.matches() )
 				{
+					switch ( i )
+					{
+						case 0:
+							
+							//htmldoc.insertAfterStart()
+
+							break;
+						case 1:
+
+							break;
+						case 2:
+
+							break;
+						case 3:
+
+							break;
+						case 4:
+
+							break;
+						case 5:
+
+							break;
+						case 6:
+
+							break;
+						case 7:
+
+							break;
+						case 8:
+
+							break;
+						case 9:
+
+							break;
+						case 10:
+
+							break;
+						case 11:
+
+							break;
+					}
 					//TODO GENERATE THE HTML stuff for the DOCUMENT 4HEAD
 				}
 			}
