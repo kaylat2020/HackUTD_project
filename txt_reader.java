@@ -4,7 +4,13 @@ import java.util.Scanner;
 import java io.IOException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import java.lang.StringBuilder;
+import javax.swing.text.html.HTMLDocument;
+
+//HTMLDocument API:
+//https://docs.oracle.com/javase/8/docs/api/javax/swing/text/html/HTMLDocument.html
+
+//Pattern API + Regex:
+//https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
 
 /**
  * @author Kayla Tucker,
@@ -13,11 +19,12 @@ import java.lang.StringBuilder;
 public class TextParser
 {
 	//regex patterns that match markdowns
+	private final Pattern emptyLn = Pattern.compile( "(\t|\n|\s)+" );
 	private Pattern heading_1, heading_2, heading_3, bold, italic, blockquote, 
 		ordered_list, unordered_list, code, horizontal_rule, link, image;
 	private Pattern[] patterns;
-	//regex pattern matchers
-	private Matcher h1, h2, h3, b, i, bq, ol, ul, c, hrule, lnk, img;
+	//tags UPDATE: WELL SHIT THEY MIGHT NOT BE NEEDED AFTER THE HTMLDOC IMPORT
+	//private String[] = new String[] { "h1","h2","h3","b","i","blockquote","ol","ul","code","hr","a","img" };
 
 	public static void main( String[] args )
 	{
@@ -56,7 +63,7 @@ public class TextParser
 	public static void initialize()
 	{
 		//these can definitely be improved
-		//btw this cheat sheet is ur reference:
+		//btw this cheat sheet is ur reference, only basic syntax for now:
 		//https://www.markdownguide.org/cheat-sheet/
 
 		heading_1 = Pattern.compile( "^(#)\s{1}(\w)+" );
@@ -68,13 +75,20 @@ public class TextParser
 		ordered_list = Pattern.compile( "(-\s{1}.*\n)+" );
 		unordered_list = Pattern.compile( "(\d\.)\s{1}" );
 		code = Pattern.compile( "`(.*)`" );
-		horizontal_rule = Pattern.compile( "(---){1}" );
+		horizontal_rule = Pattern.compile( "(---|***|___){1}" );
 		link = Pattern.compile( "\[\w\]\(^https?:\/\/.*\)" ); 
 		image = Pattern.compile( "!\[[\w\s]\]\(\w(.jpg)$" );
 
 		//throw compiled patterns into array (useful for later)
-		patterns = new Pattern[] {heading_1, heading_2, heading_3, bold, italic, 
-			blockquote, ordered_list, unordered_list, code, horizontal_rule, link, image}
+		patterns = new Pattern[] { heading_1, heading_2, heading_3, bold, italic, 
+			blockquote, ordered_list, unordered_list, code, horizontal_rule, link, image };
+
+		//HTMLdocument stuff to make empty html file
+		JEditorPane p = new JEditorPane();
+		p.setContentType("text/html");
+		p.setText("..."); // Document text is provided below.
+		HTMLDocument d = (HTMLDocument) p.getDocument();
+
 		/*
 		patterns[0] = heading_1;
 		patterns[1] = heading_2;
@@ -96,19 +110,25 @@ public class TextParser
 	 */
 	public static File converter( Scanner scan )
 	{
-		
-		for ( int i = 0; scan.hasNext(); i++ )
+		//loop through document, scan line-by-line
+		while ( scan.hasNext() )
 		{
 			String currentln = scan.nextLine();
-			StringBuilder chunk = new StringBuilder();
 
 			//loop through list of patterns, search for match
-			for ( Pattern p : patterns )
+			for ( int i = 0; i < patterns.length : patterns )
 			{
+				//ignore empty lines (stop trying to pattern match the line)
+				Matcher empty = emptyLn.matches( currentln );
+				if ( empty )
+				{
+					return;
+				}
+				//check current pattern in list for match
 				Matcher m = p.matches( currentln );
 				if ( m.matches() )
 				{
-
+					//TODO GENERATE THE HTML DOCUMENT 4HEAD
 				}
 			}
 		}
