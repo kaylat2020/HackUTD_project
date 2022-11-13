@@ -64,8 +64,8 @@ public class TextParser
 		heading_1 = Pattern.compile( "^#\\s([\\w|\\s]*)" );
 		heading_2 = Pattern.compile( "^##\\s([\\w|\\s]*)" );
 		heading_3 = Pattern.compile( "^###\\s([\\w|\\s]*)" );
-		bold = Pattern.compile( "[\\*\\*](.*)[\\*\\*]" );
-		italic = Pattern.compile( "[\\*](.*)[\\*]" );
+		bold = Pattern.compile( "\\*\\*([\\w|\\s[^\\*]]*)\\*\\*" );
+		italic = Pattern.compile( "\\*([\\w|\\s[^\\*]]*)\\*" );
 		blockquote = Pattern.compile( "^>\\s(.*)" );
 		ordered_list = Pattern.compile( "^-\\s(.*\\n)+" );
 		unordered_list = Pattern.compile( "\\d\\.\\s(\\w)" );
@@ -95,6 +95,7 @@ public class TextParser
 		{
 			String currentln = scan.nextLine();
 			System.out.println( currentln ); //test
+			Matcher m;
 
 			//loop through list of patterns, search for match
 			for ( int i = 0; i < patterns.length; i++ )
@@ -106,15 +107,17 @@ public class TextParser
 					continue;
 				}
 				//check current pattern in list for match
-				Matcher m = patterns[i].matcher( currentln );
-				//need to find way to store String attribute for tag
-				
-				if (m.find()) {
+				m = patterns[i].matcher( currentln );
+
+				if (m.find()) 
+				{
 					System.out.println("Found value: " + m.group(1));
+					continue;
 				}
 
 				if ( m.matches() )
 				{
+					//GENERATE THE HTML stuff for the DOCUMENT 4HEAD
 					switch ( i )
 					{
 						case 0:
@@ -156,7 +159,6 @@ public class TextParser
 
 							break;
 					}
-					//GENERATE THE HTML stuff for the DOCUMENT 4HEAD
 				}
 			}
 		}
