@@ -102,3 +102,12 @@ input::file-selector-button:hover{
 .drag-area.active {
     border: 2px solid #e0eafc;
     }    
+
+a{
+    color: #1683ff;
+    text-decoration: none;
+    transition-duration: 0.4s;
+
+}
+
+
