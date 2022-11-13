@@ -9,7 +9,7 @@ body{
     font-family: ‘SF Pro Display’,
         sans-serif;   
     margin:40px auto;
-    line-height:1;
+    line-height:1.2;
     font-size:25px;
     color:rgb(60, 60, 60);
     background-color:#FAF9F6;
@@ -31,12 +31,13 @@ h3 {
     }    
 
 footer{
-    font-size:12px;
+    font-size:15px;
     padding: 5px;
     text-align: center;
     bottom: 0;
     position: relative;
     width: 100%;
+    margin-bottom: 20px;
     }   
 
 input::file-selector-button, input[type=submit], input[type=file]{
